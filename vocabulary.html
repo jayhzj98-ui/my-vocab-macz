@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10年級 6月份英文單字與例句總整理 — 互動複習系統</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --primary-light: #34495e;
+            --accent-green: #27ae60;
+            --accent-orange: #e67e22;
+            --bg-main: #f4f6f8;
+            --bg-card: #ffffff;
+            --text-main: #333333;
+            --text-muted: #7f8c8d;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        header {
+            max-width: 1200px;
+            margin: 0 auto 24px auto;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        /* 儀表板與篩選區 */
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto 20px auto;
+            display: block; /* WeasyPrint / Fallback safe, but regular web supports block/flex combo */
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .stats-container {
+            display: table;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .stat-box {
+            display: table-cell;
+            width: 33.33%;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .stat-box .num {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #count-total { color: var(--primary); }
+        #count-done { color: var(--accent-green); }
+        #count-review { color: var(--accent-orange); }
+
+        .stat-box .label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .filter-tabs {
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+            text-align: center;
+        }
+
+        .tab-btn {
+            background: none;
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            margin: 0 4px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        /* 主要表格區域 */
+        .table-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: var(--primary);
+            font-weight: 600;
+            padding: 14px 16px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        /* 單字狀態樣式 */
+        tr.status-done {
+            background-color: #f0fff4 !important;
+        }
+        tr.status-review {
+            background-color: #fffaf0 !important;
+        }
+
+        /* 按鈕與操作樣式 */
+        .btn-group {
+            display: inline-flex;
+            gap: 4px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            background: #ffffff;
+            font-weight: 500;
+            transition: all 0.15s;
+        }
+
+        .btn-done:hover, .btn-done.active {
+            background-color: var(--accent-green);
+            color: white;
+            border-color: var(--accent-green);
+        }
+
+        .btn-review:hover, .btn-review.active {
+            background-color: var(--accent-orange);
+            color: white;
+            border-color: var(--accent-orange);
+        }
+
+        .part-of-speech {
+            font-style: italic;
+            color: #b33939;
+            font-weight: 600;
+        }
+
+        .date-badge {
+            background: #edf2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .word-text {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        /* 響應式排版（手機端自動優化） */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr { 
+                display: block; 
+            }
+            thead tr { 
+                position: absolute; 
+                top: -9999px; 
+                left: -9999px; 
+            }
+            tr { 
+                border: 1px solid var(--border); 
+                margin-bottom: 10px; 
+                border-radius: 8px;
+                padding: 8px;
+                background: white;
+            }
+            td { 
+                border: none; 
+                border-bottom: 1px dashed #edf2f7; 
+                position: relative; 
+                padding-left: 35%; 
+                text-align: left;
+            }
+            td:last-child {
+                border-bottom: none;
+            }
+            td:before { 
+                position: absolute; 
+                top: 14px; 
+                left: 16px; 
+                width: 30%; 
+                padding-right: 10px; 
+                white-space: nowrap; 
+                font-weight: 600;
+                color: var(--text-muted);
+                font-size: 13px;
+            }
+            td:nth-of-type(1):before { content: "日期"; }
+            td:nth-of-type(2):before { content: "單字 / 片語"; }
+            td:nth-of-type(3):before { content: "詞性 / 解釋"; }
+            td:nth-of-type(4):before { content: "英文例句"; }
+            td:nth-of-type(5):before { content: "狀態標記"; }
+            
+            td:before {
+                position: absolute;
+            }
+            .btn-group {
+                width: 100%;
+            }
+            .action-btn {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>📅 10年級 6月份英文單字自主複習系統</h1>
+        <p>點選單字右側的「已完成」或「需加強」按鈕，系統會自動幫您分流與統計進度，並將狀態儲存在這台瀏覽器中！</p>
+    </header>
+
+    <div class="dashboard">
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="num" id="count-total">0</div>
+                <div class="label">總單字量</div>
+            </div>
+            <div class="stat-box">
+                <div class="num" id="count-done">0</div>
+                <div class="label">已熟記 (完成)</div>
+            </div>
+            <div class="stat-box">
+                <div class="num" id="count-review">0</div>
+                <div class="label">需加強 (複習)</div>
+            </div>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="tab-btn active" onclick="filterList('all')">全部單字 (<span id="tab-all-count">0</span>)</button>
+            <button class="tab-btn" onclick="filterList('none')">未標記 (<span id="tab-none-count">0</span>)</button>
+            <button class="tab-btn" style="border-color: var(--accent-green); color: var(--accent-green);" onclick="filterList('done')">已熟記 (<span id="tab-done-count">0</span>)</button>
+            <button class="tab-btn" style="border-color: var(--accent-orange); color: var(--accent-orange);" onclick="filterList('review')">需加強 (<span id="tab-review-count">0</span>)</button>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 8%;">日期</th>
+                    <th style="width: 22%;">單字 / 片語</th>
+                    <th style="width: 25%;">詞性 / 中文解釋</th>
+                    <th style="width: 30%;">英文例句</th>
+                    <th style="width: 15%;">狀態標記</th>
+                </tr>
+            </thead>
+            <tbody id="vocabulary-tbody">
+                <!-- 資料將由 JavaScript 動態生成 -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // 單字資料庫
+        const vocabData = [
+            // 01日
+            { id: "01-1", date: "01", word: "district", pos: "n.", def: "區域；行政區", ex: "This district is known for its historical buildings." },
+            { id: "01-2", date: "01", word: "background", pos: "n.", def: "出身背景", ex: "Family background influences personal values deeply." },
+            { id: "01-3", date: "01", word: "routine", pos: "n.", def: "例行公事", ex: "My mom's morning routine begins with a cup of coffee." },
+            { id: "01-4", date: "01", word: "struggle", pos: "n. & vi.", def: "困境；掙扎；奮鬥", ex: "The movie shows the struggle of people living in poverty." },
+            { id: "01-5", date: "01", word: "entertain", pos: "vt.", def: "招待；娛樂", ex: "Gary entertained his guests with a special dinner." },
+            { id: "01-6", date: "01", word: "grief", pos: "n.", def: "（極度的）悲傷", ex: "Jason felt deep grief after his dog passed away." },
+            { id: "01-7", date: "01", word: "an escape from...", pos: "", def: "對於……的逃避 / 逃離", ex: "Music provides an escape from daily stress." },
+            { id: "01-8", date: "01", word: "harsh", pos: "a.", def: "（環境條件）惡劣艱苦的；嚴峻的", ex: "The region faces harsh living conditions." },
+            // 02日
+            { id: "02-1", date: "02", word: "fair", pos: "a.", def: "（皮膚）白皙的", ex: "The idol has fair skin." },
+            { id: "02-2", date: "02", word: "social status", pos: "", def: "社會地位", ex: "In some societies, social status can influence partner selection." },
+            { id: "02-3", date: "02", word: "makeup", pos: "n.", def: "化妝（不可數）", ex: "Tammy spent two hours putting on her makeup this morning." },
+            { id: "02-4", date: "02", word: "rate", pos: "n.", def: "（比）率", ex: "The birth rate has decreased rapidly since 2000." },
+            { id: "02-5", date: "02", word: "jaw", pos: "n.", def: "下巴；下顎", ex: "This helmet is designed to protect your head and jaw." },
+            { id: "02-6", date: "02", word: "youthful", pos: "a.", def: "年輕的", ex: "Although my grandma is 80 years old, she still has youthful energy." },
+            { id: "02-7", date: "02", word: "be rooted in...", pos: "", def: "深植於……", ex: "The festival is rooted in local traditions." },
+            { id: "02-8", date: "02", word: "depression", pos: "n.", def: "憂鬱症", ex: "Regular exercise can help people fight depression." },
+            // 03日
+            { id: "03-1", date: "03", word: "sprinkle", pos: "v.", def: "撒，灑", ex: "Anna sprinkled some powdered sugar on the pancakes." },
+            { id: "03-2", date: "03", word: "oily", pos: "a.", def: "油膩的", ex: "The soup tasted oily." },
+            { id: "03-3", date: "03", word: "spice", pos: "n.", def: "（烹調用的）香料", ex: "My mom adds several spices to the soup, such as chili powder and pepper." },
+            { id: "03-4", date: "03", word: "mild", pos: "a.", def: "溫和的", ex: "The sauce has a mild flavor." },
+            { id: "03-5", date: "03", word: "be introduced to...", pos: "", def: "被引進……", ex: "Baseball was introduced to Taiwan around 1897." },
+            { id: "03-6", date: "03", word: "vitamin", pos: "n.", def: "維生素，維他命", ex: "Vegetables provide a variety of vitamins and minerals." },
+            { id: "03-7", date: "03", word: "recognition", pos: "n.", def: "認可，賞識", ex: "The project gained international recognition quickly." },
+            { id: "03-8", date: "03", word: "ingredient", pos: "n.", def: "食材；（烹調的）材料", ex: "Garlic is an important ingredient in many Italian dishes." },
+            // 04日
+            { id: "04-1", date: "04", word: "reaction", pos: "n.", def: "反應", ex: "This movie caused a strong reaction online." },
+            { id: "04-2", date: "04", word: "scientific", pos: "a.", def: "科學的", ex: "The theory lacks scientific data to back it up." },
+            { id: "04-3", date: "04", word: "lie in...", pos: "", def: "在於……", ex: "Happiness often lies in small moments." },
+            { id: "04-4", date: "04", word: "gene", pos: "n.", def: "基因", ex: "Your height depends on your genes and other factors." },
+            { id: "04-5", date: "04", word: "sensitive", pos: "a.", def: "敏感的（與介詞 to 並用）", ex: "Tom is very sensitive to smells." },
+            { id: "04-6", date: "04", word: "dislike", pos: "n. & vt.", def: "厭惡；不喜歡，討厭", ex: "The public's dislike of smoking is growing." },
+            { id: "04-7", date: "04", word: "crush", pos: "v.", def: "壓碎", ex: "Falling rocks crushed the cars parked at the foot of the mountain." },
+            { id: "04-8", date: "04", word: "tolerable", pos: "a.", def: "可忍受的", ex: "The situation was barely tolerable." },
+            // 05日
+            { id: "05-1", date: "05", word: "settle into...", pos: "", def: "適應（新的家、工作、環境等）", ex: "Gail settled into college life after the first month." },
+            { id: "05-2", date: "05", word: "fast-paced", pos: "a.", def: "步調快速的", ex: "A fast-paced schedule leaves little free time." },
+            { id: "05-3", date: "05", word: "indoors", pos: "adv.", def: "在室內", ex: "The party was moved indoors because of heavy rain." },
+            { id: "05-4", date: "05", word: "prefer A to B", pos: "", def: "喜歡 A 勝過 B", ex: "Ryan prefers riding a motorcycle to driving a car." },
+            { id: "05-5", date: "05", word: "performance", pos: "n.", def: "表演", ex: "The dance performance impressed the audience." },
+            { id: "05-6", date: "05", word: "swing by + 地點", pos: "", def: "快速造訪某地", ex: "Lily swung by the pet store after class." },
+            { id: "05-7", date: "05", word: "could use sth", pos: "", def: "需要某物", ex: "My body could use some rest today." },
+            { id: "05-8", date: "05", word: "workout", pos: "n.", def: "健身運動", ex: "Today's workout focused on building strong legs." },
+            // 08日
+            { id: "08-1", date: "08", word: "visual", pos: "a. & n.", def: "視覺的；視覺呈現（常用複數）", ex: "The director is famous for her visual style." },
+            { id: "08-2", date: "08", word: "entertainment", pos: "n.", def: "娛樂", ex: "The hotel offers a wide range of entertainment services." },
+            { id: "08-3", date: "08", word: "additional", pos: "a.", def: "額外的；添加的", ex: "We need an additional two days to finish the work." },
+            { id: "08-4", date: "08", word: "concrete", pos: "n.", def: "混凝土", ex: "Workers poured concrete into the ground." },
+            { id: "08-5", date: "08", word: "wrap around...", pos: "", def: "環繞……（常用於建築或地形描述）", ex: "The river wraps around the village." },
+            { id: "08-6", date: "08", word: "resolution", pos: "n.", def: "解析度", ex: "My new phone offers better resolution than the old model." },
+            { id: "08-7", date: "08", word: "be equipped with...", pos: "", def: "配備有……", ex: "The hotel room is equipped with free Wi-Fi." },
+            { id: "08-8", date: "08", word: "realistic", pos: "a.", def: "逼真的；真實的", ex: "The experience felt more realistic with sound effects." },
+            // 09日
+            { id: "09-1", date: "09", word: "specifically", pos: "adv.", def: "專門地，特別地", ex: "This room is specifically designed for indoor sports." },
+            { id: "09-2", date: "09", word: "engage", pos: "vt.", def: "使感興趣", ex: "The speaker used humor to engage the crowd." },
+            { id: "09-3", date: "09", word: "sweat", pos: "vi.", def: "流汗，出汗", ex: "It's so hot that everyone is sweating." },
+            { id: "09-4", date: "09", word: "dress up as...", pos: "", def: "裝扮成……", ex: "Molly dressed up as a princess for the party." },
+            { id: "09-5", date: "09", word: "globally", pos: "adv.", def: "全球地", ex: "English is a globally spoken language." },
+            { id: "09-6", date: "09", word: "recognized", pos: "a.", def: "公認的", ex: "Roy is a recognized expert in this field." },
+            { id: "09-7", date: "09", word: "concert", pos: "n.", def: "演唱會；音樂會", ex: "Laura bought two tickets for her favorite band's concert." },
+            { id: "09-8", date: "09", word: "award", pos: "n.", def: "獎項", ex: "The award ceremony was held last night." },
+            // 10日
+            { id: "10-1", date: "10", word: "toss", pos: "vt.", def: "（隨手）丟，扔", ex: "Judy tossed the keys into her backpack and ran out." },
+            { id: "10-2", date: "10", word: "hold on", pos: "", def: "等一下，稍等", ex: "Hold on. I need to tie my shoes." },
+            { id: "10-3", date: "10", word: "depending on...", pos: "", def: "……視……而定 / 取決於", ex: "The rules may vary, depending on the situation." },
+            { id: "10-4", date: "10", word: "charge", pos: "vt.", def: "充電", ex: "The charging of a power bank must follow safety rules." },
+            { id: "10-5", date: "10", word: "properly", pos: "adv.", def: "妥善地", ex: "Scissors should be properly stored after use.</td>" },
+            { id: "10-6", date: "10", word: "bin", pos: "n.", def: "櫃；箱子", ex: "The papers are stored in a bin under the desk." },
+            { id: "10-7", date: "10", word: "battery", pos: "n.", def: "電池", ex: "The toy needs two batteries to work." },
+            { id: "10-8", date: "10", word: "technically", pos: "adv.", def: "嚴格來說，事實上", ex: "The phone is technically new, although it has been used once." },
+            // 11日
+            { id: "11-1", date: "11", word: "place one's order", pos: "", def: "某人點餐", ex: "Linda placed her order online because she didn't want to wait in line." },
+            { id: "11-2", date: "11", word: "be familiar with...", pos: "", def: "熟悉……", ex: "Anna is familiar with all the bus lines around her home." },
+            { id: "11-3", date: "11", word: "immediate", pos: "a.", def: "立刻的", ex: "The patient needed immediate medical care." },
+            { id: "11-4", date: "11", word: "explanation", pos: "n.", def: "說明，解釋", ex: "The manager provided an explanation for the delay." },
+            { id: "11-5", date: "11", word: "reduce", pos: "vt.", def: "減少", ex: "The new system reduces waiting times to just a few minutes." },
+            { id: "11-6", date: "11", word: "staff", pos: "n.", def: "員工，職員（不可數）", ex: "The restaurant staff cleaned the tables quickly." },
+            { id: "11-7", date: "11", word: "shorten", pos: "v.", def: "縮短", ex: "Because of our limited budget, we have to shorten our trip by two days." },
+            { id: "11-8", date: "11", word: "dine", pos: "vi.", def: "用餐，吃飯", ex: "The restaurant features an outdoor dining area." },
+            // 12日
+            { id: "12-1", date: "12", word: "vividly", pos: "adv.", def: "生動地", ex: "The novel vividly describes the magical scenes." },
+            { id: "12-2", date: "12", word: "be scheduled to + V", pos: "", def: "預定 / 預期……", ex: "The concert is scheduled to begin at 7 p.m." },
+            { id: "12-3", date: "12", word: "match", pos: "v.", def: "符合", ex: "Ray's skills and experience match this job." },
+            { id: "12-4", date: "12", word: "technique", pos: "n.", def: "技術，技巧", ex: "The teacher introduced a new painting technique." },
+            { id: "12-5", date: "12", word: "constant", pos: "a.", def: "不斷的，持續的", ex: "Constant rain caused serious flooding." },
+            { id: "12-6", date: "12", word: "interact with sb", pos: "", def: "與某人互動", ex: "The robot can interact with customers." },
+            { id: "12-7", date: "12", word: "engage sb in conversation", pos: "", def: "與某人交談；使某人加入談話", ex: "The reporters engaged the actor in conversation." },
+            { id: "12-8", date: "12", word: "invisible", pos: "a.", def: "看不見的，隱形的", ex: "The ink becomes invisible under the light." },
+            // 15日
+            { id: "15-1", date: "15", word: "vast", pos: "a.", def: "廣闊的，龐大的", ex: "Bill stood on a hill and looked over the vast plain." },
+            { id: "15-2", date: "15", word: "mystery", pos: "n.", def: "神祕的事物，謎", ex: "The forest holds many mysteries." },
+            { id: "15-3", date: "15", word: "striking", pos: "a.", def: "引人注目的", ex: "The building's striking design stands out in the city." },
+            { id: "15-4", date: "15", word: "spread out", pos: "", def: "展開", ex: "The roots of the tree spread out underground in all directions." },
+            { id: "15-5", date: "15", word: "phenomenon", pos: "n.", def: "現象（單數，複數為 phenomena）", ex: "Scientists are studying this natural phenomenon." },
+            { id: "15-6", date: "15", word: "bubble", pos: "n.", def: "水泡，氣泡", ex: "Bubbles formed when the water began to boil." },
+            { id: "15-7", date: "15", word: "upside down", pos: "", def: "上下顛倒", ex: "David turned the bottle upside down to pour out the water." },
+            { id: "15-8", date: "15", word: "drift", pos: "vi.", def: "漂流", ex: "Leaves drifted slowly across the lake." },
+            // 16日
+            { id: "16-1", date: "16", word: "characteristic", pos: "n.", def: "特記，特性", ex: "One characteristic of the animal is its long tail." },
+            { id: "16-2", date: "16", word: "feed on...", pos: "", def: "（動物）以……為食", ex: "Deer feed on grass and leaves in the forest." },
+            { id: "16-3", date: "16", word: "sting", pos: "vt. & n.", def: "（動物）蜇，刺；蟄傷", ex: "The bee stung the boy on the arm." },
+            { id: "16-4", date: "16", word: "steal", pos: "vt.", def: "偷，竊取", ex: "Someone stole Ian's bike outside the store." },
+            { id: "16-5", date: "16", word: "defense", pos: "n.", def: "防禦，防衛", ex: "Strong walls provide defense against attacks." },
+            { id: "16-6", date: "16", word: "extremely", pos: "adv.", def: "非常，極度地", ex: "Kate was extremely nervous before the exam." },
+            { id: "16-7", date: "16", word: "wash up...", pos: "", def: "（海浪）把……沖上岸邊", ex: "A lot of trash was washed up on the beach after the storm." },
+            { id: "16-8", date: "16", word: "keep one's distance from...", pos: "", def: "某人對……保持距離", ex: "My mother told me to keep my distance from wild animals." },
+            // 17日
+            { id: "17-1", date: "17", word: "destruction", pos: "n.", def: "毀壞，破壞", ex: "The storm caused serious destruction in the village." },
+            { id: "17-2", date: "17", word: "flame", pos: "n.", def: "火焰", ex: "Hank watched the flame of the candle in silence." },
+            { id: "17-3", date: "17", word: "in a matter of + 時間", pos: "", def: "在一段時間內（通常指很短的時間）", ex: "This work is easy. I can finish it in a matter of minutes." },
+            { id: "17-4", date: "17", word: "oxygen", pos: "n.", def: "氧氣", ex: "Humans need oxygen to survive." },
+            { id: "17-5", date: "17", word: "put out...", pos: "", def: "撲滅 / 熄滅……", ex: "Gina put out the candle before going to bed." },
+            { id: "17-6", date: "17", word: "spark", pos: "n.", def: "火花，火星", ex: "A spark flew from the burning wood." },
+            { id: "17-7", date: "17", word: "intense", pos: "a.", def: "劇烈的，強烈的", ex: "The intense light hurt Sam's eyes." },
+            { id: "17-8", date: "17", word: "gasoline", pos: "n.", def: "汽油", ex: "The car ran out of gasoline on the highway." },
+            // 18日
+            { id: "18-1", date: "18", word: "in case of...", pos: "", def: "以防 / 倘若……", ex: "You should bring warm clothes in case of cold weather." },
+            { id: "18-2", date: "18", word: "escape route", pos: "", def: "逃生路線", ex: "The building has a clearly marked escape route." },
+            { id: "18-3", date: "18", word: "panic", pos: "vi.", def: "驚慌，慌張", ex: "Hazel began to panic when she lost her phone." },
+            { id: "18-4", date: "18", word: "emergency service", pos: "", def: "緊急服務", ex: "The emergency service operates 24 hours a day." },
+            { id: "18-5", date: "18", word: "make one's way to", pos: "", def: "某人向某地前進", ex: "The tourists made their way to the old temple." },
+            { id: "18-6", date: "18", word: "elevator", pos: "n.", def: "電梯", ex: "The elevator is out of service today." },
+            { id: "18-7", date: "18", word: "flashlight", pos: "n.", def: "手電筒", ex: "James used a flashlight to see in the dark." },
+            { id: "18-8", date: "18", word: "essential", pos: "a.", def: "必要的，不可或缺的", ex: "Experience is essential for this job." },
+            // 22日
+            { id: "22-1", date: "22", word: "observe", pos: "v.", def: "觀察", ex: "Shelly observed my reaction after she told the truth." },
+            { id: "22-2", date: "22", word: "scholar", pos: "n.", def: "學者", ex: "The scholar has studied ancient history for over 20 years." },
+            { id: "22-3", date: "22", word: "account", pos: "n.", def: "敘述，說明", ex: "Anna's account of the trip was interesting." },
+            { id: "22-4", date: "22", word: "divide A into B", pos: "", def: "把 A 分成 B", ex: "Mom divided the cake into eight pieces." },
+            { id: "22-5", date: "22", word: "adopt", pos: "v.", def: "採用", ex: "The company adopted a new marketing strategy." },
+            { id: "22-6", date: "22", word: "assign A to B", pos: "", def: "將 A 分配給 B", ex: "The coach assigned different roles to the players." },
+            { id: "22-7", date: "22", word: "mostly", pos: "adv.", def: "大多，主要地", ex: "Bella mostly studies at night." },
+            { id: "22-8", date: "22", word: "systematic", pos: "a.", def: "有系統的", ex: "A systematic approach helps solve complex problems." },
+            // 23日
+            { id: "23-1", date: "23", word: "be associated with...", pos: "", def: "與……有關", ex: "This festival is closely associated with the local culture." },
+            { id: "23-2", date: "23", word: "predict", pos: "vt.", def: "預測", ex: "Evan predicted the team would win the game." },
+            { id: "23-3", date: "23", word: "experiment", pos: "n.", def: "實驗", ex: "Gary designed an experiment to study human behavior." },
+            { id: "23-4", date: "23", word: "be no better than...", pos: "", def: "和……幾乎一樣，比……好不到哪裡去", ex: "This plan is no better than the previous one." },
+            { id: "23-5", date: "23", word: "accurately", pos: "adv.", def: "準確地", ex: "The machine can detect errors accurately." },
+            { id: "23-6", date: "23", word: "confidence", pos: "n.", def: "信心", ex: "Tom lacks confidence when speaking in public." },
+            { id: "23-7", date: "23", word: "logic", pos: "n.", def: "邏輯", ex: "The teacher wanted the students to understand the logic behind the event." },
+            { id: "23-8", date: "23", word: "reliable", pos: "a.", def: "可靠的，可信賴的", ex: "Diane is a reliable friend who always keeps her promises." },
+            // 24日
+            { id: "24-1", date: "24", word: "be coming up", pos: "", def: "即將到來", ex: "The school dance is coming up next week." },
+            { id: "24-2", date: "24", word: "semester", pos: "n.", def: "學期", ex: "Bella plans to study harder this semester." },
+            { id: "24-3", date: "24", word: "be in trouble", pos: "", def: "陷入麻煩", ex: "Gina knew she was in trouble when the teacher called her name." },
+            { id: "24-4", date: "24", word: "physics", pos: "n.", def: "物理（學）", ex: "We have a physics test tomorrow." },
+            { id: "24-5", date: "24", word: "nightmare", pos: "n.", def: "夢魘，惡夢", ex: "Losing my wallet was a real nightmare." },
+            { id: "24-6", date: "24", word: "be bad at...", pos: "", def: "不擅長……", ex: "Jane is bad at cooking, so she often eats out." },
+            { id: "24-7", date: "24", word: "go over...", pos: "", def: "複習……", ex: "I always go over new words before going to bed." },
+            { id: "24-8", date: "24", word: "quiz", pos: "vt.", def: "對……進行測驗", ex: "Mr. Lee quizzed us on world history." },
+            // 25日
+            { id: "25-1", date: "25", word: "schedule", pos: "n.", def: "計畫表，進度表", ex: "My work schedule is full this week." },
+            { id: "25-2", date: "25", word: "set aside...", pos: "", def: "安排，撥出（時間或金錢）", ex: "I set aside some time to study French every night." },
+            { id: "25-3", date: "25", word: "determine", pos: "vt.", def: "決定，確定", ex: "The judge will determine the result of the case." },
+            { id: "25-4", date: "25", word: "devote", pos: "vt.", def: "將……專注於", ex: "The writer devoted years to finishing his novel." },
+            { id: "25-5", date: "25", word: "vocabulary", pos: "n.", def: "單字，字彙（不可數）", ex: "I review my Spanish vocabulary every night." },
+            { id: "25-6", date: "25", word: "stressful", pos: "a.", def: "緊張的，充滿壓力的", ex: "Planning a wedding can be stressful because there are so many details." },
+            { id: "25-7", date: "25", word: "confident", pos: "a.", def: "有信心的", ex: "Gary is confident that he can win the game." },
+            { id: "25-8", date: "25", word: "teamwork", pos: "n.", def: "團隊合作", ex: "The project was finished on time because of strong teamwork." },
+            // 29日
+            { id: "29-1", date: "29", word: "civilization", pos: "n.", def: "文明", ex: "The river helped the early civilization grow." },
+            { id: "29-2", date: "29", word: "tomb", pos: "n.", def: "墳墓，陵墓", ex: "People visit the ancient tomb to learn about its history." },
+            { id: "29-3", date: "29", word: "reflect", pos: "vt.", def: "反映", ex: "The report reflects the current situation." },
+            { id: "29-4", date: "29", word: "act as...", pos: "", def: "充當…… / 起……作用", ex: "This small room acts as a study space for the children." },
+            { id: "29-5", date: "29", word: "labor", pos: "n.", def: "體力勞動（不可數）", ex: "The workers were tired after hours of labor." },
+            { id: "29-6", date: "29", word: "assist sb in...", pos: "", def: "在……方面協助某人", ex: "The nurse assisted the doctor in the operation." },
+            { id: "29-7", date: "29", word: "bury", pos: "vt.", def: "埋葬", ex: "The dog buried the bone in the yard." },
+            { id: "29-8", date: "29", word: "noble", pos: "n.", def: "貴族", ex: "The nobles in this society wore gold rings as symbols of power." },
+            // 30日
+            { id: "30-1", date: "30", word: "significant", pos: "a.", def: "重要的，重大的", ex: "The discovery is significant for the development of medical treatments." },
+            { id: "30-2", date: "30", word: "previously", pos: "adv.", def: "先前，以前", ex: "The house was previously owned by a famous writer." },
+            { id: "30-3", date: "30", word: "prominent", pos: "a.", def: "著名的，重要的", ex: "The museum displays works by several prominent artists." },
+            { id: "30-4", date: "30", word: "dynasty", pos: "n.", def: "王朝，朝代", ex: "Each dynasty had its own culture and traditions." },
+            { id: "30-5", date: "30", word: "chamber", pos: "n.", def: "（特定用途的）室、房間", ex: "Security cameras send live images to the control chamber." },
+            { id: "30-6", date: "30", word: "protection", pos: "n.", def: "保護", ex: "Jeff wore a helmet for protection." },
+            { id: "30-7", date: "30", word: "reveal", pos: "v.", def: "揭露，透露", ex: "The movie will reveal the ending in the final scene." },
+            { id: "30-8", date: "30", word: "circumstance", pos: "n.", def: "情況（常用複數）", ex: "Martin left the company due to family circumstances." }
+        ];
+
+        // 從 LocalStorage 載入使用者的標記狀態，若無則為空物件
+        let userStatus = JSON.parse(localStorage.getItem('vocab_status_2026_06')) || {};
+        let currentFilter = 'all';
+
+        // 初始化渲染
+        function initTable() {
+            const tbody = document.getElementById('vocabulary-tbody');
+            tbody.innerHTML = '';
+
+            let lastDate = "";
+
+            vocabData.forEach((item) => {
+                const tr = document.createElement('tr');
+                tr.id = `row-${item.id}`;
+                
+                // 加上當前標記的狀態類別
+                const status = userStatus[item.id] || 'none';
+                if (status !== 'none') {
+                    tr.classList.add(`status-${status}`);
+                }
+
+                // 日期美化：同一天的日期只顯示一次
+                const dateDisplay = (item.date === lastDate) ? '' : `<span class="date-badge">${item.date} 日</span>`;
+                lastDate = item.date;
+
+                // 詞性處理
+                const posHtml = item.pos ? `<span class="part-of-speech">${item.pos}</span> ` : '';
+
+                tr.innerHTML = `
+                    <td>${dateDisplay}</td>
+                    <td><span class="word-text">${item.word}</span></td>
+                    <td>${posHtml}${item.def}</td>
+                    <td>${item.ex}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="action-btn btn-done ${status === 'done' ? 'active' : ''}" onclick="toggleStatus('${item.id}', 'done')">已熟記</button>
+                            <button class="action-btn btn-review ${status === 'review' ? 'active' : ''}" onclick="toggleStatus('${item.id}', 'review')">需加強</button>
+                        </div>
+                    </td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+
+            updateStats();
+            applyFilter();
+        }
+
+        // 切換單字標記狀態
+        window.toggleStatus = function(id, type) {
+            const current = userStatus[id];
+            
+            if (current === type) {
+                // 如果點選同一個按鈕，則取消標記 (恢復未標記)
+                delete userStatus[id];
+            } else {
+                // 設定為新狀態
+                userStatus[id] = type;
+            }
+
+            // 儲存至瀏覽器 local儲存區
+            localStorage.setItem('vocab_status_2026_06', JSON.stringify(userStatus));
+            
+            // 更新畫面特定行與統計資訊
+            const tr = document.getElementById(`row-${id}`);
+            tr.className = ''; // 清除舊狀態
+            
+            const btnDone = tr.querySelector('.btn-done');
+            const btnReview = tr.querySelector('.btn-review');
+            
+            btnDone.classList.remove('active');
+            btnReview.classList.remove('active');
+
+            const newStatus = userStatus[id] || 'none';
+            if (newStatus !== 'none') {
+                tr.classList.add(`status-${newStatus}`);
+                if (newStatus === 'done') btnDone.classList.add('active');
+                if (newStatus === 'review') btnReview.classList.add('active');
+            }
+
+            updateStats();
+            applyFilter(); // 即時流轉分流
+        };
+
+        // 更新數據看板
+        function updateStats() {
+            let total = vocabData.length;
+            let done = 0;
+            let review = 0;
+
+            Object.values(userStatus).forEach(status => {
+                if (status === 'done') done++;
+                if (status === 'review') review++;
+            });
+
+            let none = total - done - review;
+
+            // 更新數據區
+            document.getElementById('count-total').innerText = total;
+            document.getElementById('count-done').innerText = done;
+            document.getElementById('count-review').innerText = review;
+
+            // 更新頁籤數量
+            document.getElementById('tab-all-count').innerText = total;
+            document.getElementById('tab-none-count').innerText = none;
+            document.getElementById('tab-done-count').innerText = done;
+            document.getElementById('tab-review-count').innerText = review;
+        }
+
+        // 切換分流分頁
+        window.filterList = function(filterType) {
+            currentFilter = filterType;
+            
+            // 更新按鈕 active 樣式
+            const btns = document.querySelectorAll('.tab-btn');
+            btns.forEach(btn => btn.classList.remove('active'));
+            
+            // 找到觸發的按鈕加強反饋
+            event.currentTarget.classList.add('active');
+            
+            applyFilter();
+        };
+
+        // 執行篩選顯示/隱藏
+        function applyFilter() {
+            vocabData.forEach(item => {
+                const tr = document.getElementById(`row-${item.id}`);
+                const status = userStatus[item.id] || 'none';
+
+                if (currentFilter === 'all') {
+                    tr.style.display = '';
+                } else if (currentFilter === 'none' && status === 'none') {
+                    tr.style.display = '';
+                } else if (currentFilter === 'done' && status === 'done') {
+                    tr.style.display = '';
+                } else if (currentFilter === 'review' && status === 'review') {
+                    tr.style.display = '';
+                } else {
+                    tr.style.display = 'none';
+                }
+            });
+        }
+
+        // 啟動
+        document.addEventListener('DOMContentLoaded', initTable);
+    </script>
+</body>
+</html>
